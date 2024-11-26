@@ -1,35 +1,23 @@
-terraform {
-  cloud {
-    organization = "terraform-ram"
-
-    workspaces {
-      name = "terraform"
-    }
-  }
-
-  required_providers {
-    aws = {
-      source  = "hashicorp/aws"
-      version = "~> 5.0"
-    }
-  }
-}
-
+# Specify the provider
 provider "aws" {
-  region = "us-east-1"
+  region = "us-east-1" # Change to your desired region
 }
 
+# Create an S3 bucket
 resource "aws_s3_bucket" "example" {
-  bucket = "example-bucket-ram-2024" # Replace with a globally unique name
+  bucket = var.bucket_name # Use variable for bucket name
+  acl    = var.bucket_acl  # Use variable for ACL
 
+  # Enable bucket versioning if specified
+  versioning {
+    enabled = var.enable_versioning
+  }
+
+  # Tags for the bucket
   tags = {
-    Name        = "example-bucket"
-    Environment = "Development"
+    Name        = var.bucket_name
+    Environment = var.environment
   }
 }
 
-resource "aws_s3_bucket_acl" "example_acl" {
-  bucket = aws_s3_bucket.example.id
-  acl    = "private"
-}
 

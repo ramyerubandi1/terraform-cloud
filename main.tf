@@ -11,8 +11,3 @@ module "s3_bucket" {
   force_destroy = true                                   # Allow deleting non-empty buckets
   versioning    = { enabled = true }                     # Enable versioning
 }
-
-# Output the bucket name
-output "bucket_name" {
-  value = module.s3_bucket.bucket  # Outputs the bucket name created by the module
-}

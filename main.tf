@@ -6,12 +6,6 @@ provider "aws" {
 # Create an S3 bucket
 resource "aws_s3_bucket" "example" {
   bucket = var.bucket_name # Use variable for bucket name
-  acl    = var.bucket_acl  # Use variable for ACL
-
-  # Enable bucket versioning if specified
-  versioning {
-    enabled = var.enable_versioning
-  }
 
   # Tags for the bucket
   tags = {
@@ -20,4 +14,18 @@ resource "aws_s3_bucket" "example" {
   }
 }
 
+# Apply ACL to the S3 bucket using a separate resource
+resource "aws_s3_bucket_acl" "example" {
+  bucket = aws_s3_bucket.example.bucket
+  acl    = var.bucket_acl
+}
+
+# Apply versioning to the S3 bucket using a separate resource
+resource "aws_s3_bucket_versioning" "example" {
+  bucket = aws_s3_bucket.example.bucket
+
+  versioning {
+    enabled = var.enable_versioning
+  }
+}
 

@@ -23,6 +23,7 @@ module "s3_bucket" {
   }
 }
 
+# Correct output configuration
 output "bucket_name" {
-  value = module.s3_bucket.bucket  # Output the bucket name after creation
+  value = module.s3_bucket.bucket_id  # Correct attribute for the bucket's name
 }

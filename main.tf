@@ -20,7 +20,7 @@ provider "aws" {
 }
 
 resource "aws_s3_bucket" "example" {
-  bucket = "example-bucket-name" # Change to your unique bucket name
+  bucket = "example-bucket-ram-2024" # Replace with a globally unique name
   acl    = "private"
 
   tags = {
